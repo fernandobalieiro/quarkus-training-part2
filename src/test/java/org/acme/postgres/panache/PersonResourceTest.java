@@ -1,4 +1,4 @@
-package org.acme.mongodb.panache;
+package org.acme.postgres.panache;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.AfterAll;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import jakarta.inject.Inject;
-import java.time.Duration;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
-import static org.acme.mongodb.panache.Status.ACTIVE;
+import static org.acme.postgres.panache.Status.ACTIVE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
@@ -33,28 +33,28 @@ class PersonResourceTest {
     @BeforeAll
     void setup() {
         person1 = new Person();
-        person1.name = "Person 1";
-        person1.status = ACTIVE;
+        person1.setName("Person 1");
+        person1.setStatus(ACTIVE);
 
         person2 = new Person();
-        person2.name = "Person 2";
-        person2.status = ACTIVE;
+        person2.setName("Person 2");
+        person2.setStatus(ACTIVE);
 
         personToDelete = new Person();
-        personToDelete.name = "Person To Delete";
-        personToDelete.status = ACTIVE;
+        personToDelete.setName("Person To Delete");
+        personToDelete.setStatus(ACTIVE);
 
         List<Person> people = new ArrayList<>();
         people.add(person1);
         people.add(person2);
         people.add(personToDelete);
 
-        personRepository.persist(people).await().atMost(Duration.ofSeconds(2));
+        personRepository.persist(people);
     }
 
     @AfterAll
     void tearDown() {
-        personRepository.deleteAll().await().atMost(Duration.ofSeconds(2));
+        personRepository.deleteAll();
     }
 
     @Test
@@ -69,7 +69,7 @@ class PersonResourceTest {
     @Test
     void testGetByIdEndpoint() {
         given()
-                .when().get("/people/{id}", person1.id.toString())
+                .when().get("/people/{id}", person1.getId().toString())
                 .then()
                 .statusCode(200)
                 .body("name", is("Person 1"));
@@ -99,7 +99,7 @@ class PersonResourceTest {
         given()
                 .body(payload)
                 .contentType(JSON)
-                .when().put("/people/{id}", person2.id.toString())
+                .when().put("/people/{id}", person2.getId().toString())
                 .then()
                 .statusCode(200)
                 .body("name", is("Person 2 Updated"));
@@ -109,7 +109,7 @@ class PersonResourceTest {
     void testDeleteEndpoint() {
         given()
                 .contentType(JSON)
-                .when().delete("/people/{id}", personToDelete.id.toString())
+                .when().delete("/people/{id}", personToDelete.getId().toString())
                 .then()
                 .statusCode(200);
     }

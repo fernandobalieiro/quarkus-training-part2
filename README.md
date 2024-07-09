@@ -1,8 +1,20 @@
-# Quarkus Reactive MongoDB
+# Quarkus Reactive Postgres
+
+Quarkus Training Source Code for Prezi Presentation [Quarkus: 101 - What is behind the annotations?](https://prezi.com/p/ddloghc-my8m/?present=1).
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+
+# Running the example in Native Mode
+
+```shell
+$ mkdir -p /tmp/test2/data && docker compose up -d
+
+$ ./mvnw package -Dnative -Dquarkus.native.container-build=true -DskipTests && cd target
+
+$ ./quarkus-training-part2-1.0.0-SNAPSHOT-runner
+```
 
 ## Running the application in dev mode
 
