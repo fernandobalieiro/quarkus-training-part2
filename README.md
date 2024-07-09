@@ -1,4 +1,6 @@
-# Quarkus Reactive MongoDB
+# Quarkus Postgres
+
+Quarkus Training Source Code for Prezi Presentation [Quarkus: 101 - What is behind the annotations?](https://prezi.com/p/ddloghc-my8m/?present=1).
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 

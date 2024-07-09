@@ -2,6 +2,10 @@
 GET http://localhost:8080/people
 Content-Type: application/json
 
+### Retrieve a Person
+GET http://localhost:8080/people/1
+Content-Type: application/json
+
 ### Create a new Person
 POST http://localhost:8080/people
 Content-Type: application/json
@@ -12,17 +16,13 @@ Content-Type: application/json
 }
 
 ### Update a Person
-PUT http://localhost:8080/people/668d61ee9fce61222ed282ea
+PUT http://localhost:8080/people/1
 Content-Type: application/json
 
 {
-  "name": "Paul",
+  "name": "Alice Smith",
   "status": "INACTIVE"
 }
 
 ### Remove a Person
-DELETE http://localhost:8080/people/668d61ee9fce61222ed282ea
-
-### Server-Sent Events stream
-GET http://localhost:8080/people/stream
-Content-Type: application/json
+DELETE http://localhost:8080/people/1
