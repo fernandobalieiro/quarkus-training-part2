@@ -13,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
@@ -22,6 +24,8 @@ import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 @Consumes(APPLICATION_JSON)
 public class PersonResource {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(PersonResource.class);
+
     private final PersonService personService;
 
     public PersonResource(final PersonService personService) {
@@ -30,6 +34,7 @@ public class PersonResource {
 
     @GET
     public List<Person> get() {
+        LOGGER.info("Get all people");
         return personService.findAll();
     }
 
